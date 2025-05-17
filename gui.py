@@ -1,15 +1,17 @@
 import tkinter as tk
 from tkinter import ttk
-from logic import (
+from form_logic import (
     init_state, start_room, save_desk, next_room,
-    save_all_to_xml, load_from_xml, toggle_view,
-    setup_preview_frame
+    save_all_to_xml, load_from_xml
+)
+from preview_logic import (
+    setup_preview_frame, toggle_view
 )
 
 def build_gui(root):
     root.title("Office Equipment Tracker")
-    root.geometry("1000x700")
-    root.minsize(800, 600)
+    root.geometry("1100x750")
+    root.minsize(950, 600)
 
     main_frame = ttk.Frame(root)
     main_frame.grid(row=0, column=0, padx=10, pady=10, sticky='nsew')
@@ -68,4 +70,6 @@ def build_gui(root):
     setup_preview_frame(main_frame)
 
 def get_entries():
-    return room_name_entry, desk_count_entry
+    # Delayed import to avoid circular dependency
+    import gui
+    return gui.room_name_entry, gui.desk_count_entry
